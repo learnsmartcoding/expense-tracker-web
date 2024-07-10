@@ -36,6 +36,9 @@ import {
 } from '@azure/msal-angular';
 import { environment } from '../environments/environment';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpRequestInterceptor } from './service/spinner-interceptor';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -115,8 +118,21 @@ export const appConfig: ApplicationConfig = {
   providers: [    
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),    
+    provideHttpClient(withInterceptorsFromDi()),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpRequestInterceptor,
+      multi: true,
+    },
     importProvidersFrom(
-      BrowserModule      
+      BrowserModule,
+      BrowserAnimationsModule,
+      ToastrModule.forRoot({
+        timeOut: 5000,
+        positionClass: 'toast-top-left',
+        preventDuplicates: true,
+      }),
+      NgxSpinnerModule.forRoot({ type: 'ball-scale-multiple' })  
     ),
     provideNoopAnimations(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),

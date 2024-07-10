@@ -21,22 +21,22 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from './service/login.service';
 import { Claim } from './models/claim';
 import { CreditCardService } from './service/credit-card.service';
+import { NgxSpinnerComponent } from 'ngx-spinner';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule,
-    MsalModule,],
+  imports: [RouterOutlet, CommonModule, NgxSpinnerComponent, MsalModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Azure AD B2C | .Net Core 8 & Angular 18 | Sample App | MSAL V3';
   isIframe = false;
   loginDisplay = false;
   private readonly _destroying$ = new Subject<void>();
-  claims:Claim[]=[];
-  
+  claims: Claim[] = [];
+
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
@@ -68,10 +68,10 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       });
 
-        //To subscribe for claims
-        this.loginService.claims$.subscribe((c) => {
-          this.claims = c;
-        });
+    //To subscribe for claims
+    this.loginService.claims$.subscribe((c) => {
+      this.claims = c;
+    });
 
     this.msalBroadcastService.inProgress$
       .pipe(
@@ -148,7 +148,9 @@ export class AppComponent implements OnInit, OnDestroy {
     this._destroying$.complete();
   }
 
-  getCreditCard(){
-this.creditCardService.getCreditCards(4).subscribe(s=>console.log('Credit cards',s));
+  getCreditCard() {
+    this.creditCardService
+      .getCreditCards(4)
+      .subscribe((s) => console.log('Credit cards', s));
   }
 }
