@@ -16,7 +16,8 @@ export const environment: EnvironmentConfiguration = {
   apiEndpoints: {
     userProfile:'user-profiles'
   },
-  adb2cConfig: {
+  adConfig: {
+    tenantId: "",
     clientId: '2b9d74de-7aad-402c-b912-b653574516ee',
     readScopeUrl: 'https://karthiktechworld.onmicrosoft.com/expensetracker/api/Expense.Read',
     writeScopeUrl: 'https://karthiktechworld.onmicrosoft.com/expensetracker/api/Expense.Write',

@@ -67,9 +67,9 @@ export const b2cPolicies = {
 export function MSALInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: environment.adb2cConfig.clientId,
-      authority: b2cPolicies.authorities.signUpSignIn.authority, //environment.msalConfig.auth.authority,
-      knownAuthorities: [b2cPolicies.authorityDomain], // Mark your B2C tenant's domain as trusted.
+      clientId: environment.adConfig.clientId,
+      authority: `https://login.microsoftonline.com/${environment.adConfig.tenantId}`,
+      knownAuthorities: [`login.microsoftonline.com`],
       redirectUri: '/',
       postLogoutRedirectUri: '/',
     },
@@ -91,10 +91,9 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   //have this set if more microservice used or requires different scope for different controllers
   protectedResourceMap.set(
-    environment.adb2cConfig.apiEndpointUrl, // This is for all controllers
-    environment.adb2cConfig.scopeUrls
+    environment.adConfig.apiEndpointUrl, // This is for all controllers
+    environment.adConfig.scopeUrls
   );
-
   return {
     interactionType: InteractionType.Redirect,
     protectedResourceMap,
@@ -105,7 +104,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return {
     interactionType: InteractionType.Redirect,
     authRequest: {
-      scopes: [...environment.adb2cConfig.scopeUrls],
+      scopes: [...environment.adConfig.scopeUrls],
     },
     loginFailedRoute: '/login-failed',
   };

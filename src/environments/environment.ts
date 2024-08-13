@@ -16,15 +16,16 @@ export const environment: EnvironmentConfiguration = {
   apiEndpoints: {
     userProfile:'user-profiles'
   },
-  adb2cConfig: {
-    clientId: 'f9d96116-bd30-4770-b15a-f199417bc3cf',
-    readScopeUrl: 'https://karthiktechworld.onmicrosoft.com/dev/expensetracker/api/Expense.Read',
-    writeScopeUrl: 'https://karthiktechworld.onmicrosoft.com/dev/expensetracker/api/Expense.Write',
-    scopeUrls:[
-      'https://karthiktechworld.onmicrosoft.com/dev/expensetracker/api/Expense.Read',
-      'https://karthiktechworld.onmicrosoft.com/dev/expensetracker/api/Expense.Write'
+  adConfig: {
+    clientId: '598e0157-9cdc-4845-9315-6ff6e3949a23',
+    readScopeUrl: 'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Read',
+    writeScopeUrl: 'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Write',
+    scopeUrls: [
+      'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Read',
+      'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Write'
     ],
-    apiEndpointUrl: 'https://localhost:44351/api'
+    apiEndpointUrl: 'https://localhost:44351/api',
+    tenantId: "ebd39e7e-31bc-4973-bc73-fef8e127d164"
   },
   cacheTimeInMinutes: 30,
 };

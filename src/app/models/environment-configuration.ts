@@ -5,8 +5,9 @@ export interface EnvironmentConfiguration {
     apiEndpoints: {
         userProfile: string;      
     },
-    adb2cConfig: {
+    adConfig: {
         clientId: string;
+        tenantId:string;
         readScopeUrl: string;
         scopeUrls:string[];
         writeScopeUrl: string;
