@@ -21,28 +21,31 @@ import { CommonModule } from '@angular/common';
 import { LoginService } from './service/login.service';
 import { Claim } from './models/claim';
 import { CreditCardService } from './service/credit-card.service';
+import { ClaimsApiService } from './service/claims-api.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule,
-    MsalModule,],
+  imports: [RouterOutlet, CommonModule, MsalModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Azure AD B2C | .Net Core 8 & Angular 18 | Sample App | MSAL V3';
+  title =
+    'Azure AD Identity Management | .NET Core 8 & Angular 18 Sample App | MSAL v3 Integration';
   isIframe = false;
   loginDisplay = false;
   private readonly _destroying$ = new Subject<void>();
-  claims:Claim[]=[];
-  
+  claims: Claim[] = [];
+  claimsFromApi: any;
+
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
     private msalBroadcastService: MsalBroadcastService,
     private loginService: LoginService,
-    private creditCardService: CreditCardService
+    private creditCardService: CreditCardService,
+    private claimsApiService: ClaimsApiService
   ) {}
 
   ngOnInit(): void {
@@ -68,10 +71,10 @@ export class AppComponent implements OnInit, OnDestroy {
         }
       });
 
-        //To subscribe for claims
-        this.loginService.claims$.subscribe((c) => {
-          this.claims = c;
-        });
+    //To subscribe for claims
+    this.loginService.claims$.subscribe((c) => {
+      this.claims = c;
+    });
 
     this.msalBroadcastService.inProgress$
       .pipe(
@@ -148,7 +151,23 @@ export class AppComponent implements OnInit, OnDestroy {
     this._destroying$.complete();
   }
 
-  getCreditCard(){
-this.creditCardService.getCreditCards(4).subscribe(s=>console.log('Credit cards',s));
+  getCreditCard() {
+    this.creditCardService.getCreditCards(4).subscribe((s) => {
+      //  s is an array
+      // Check if s is empty
+      if (s.length === 0) {
+        alert('Credit cards: No data returned');
+      } else {
+        // Serialize s to a string
+        const serializedData = JSON.stringify(s);
+        alert('Credit cards: ' + serializedData);
+      }
+    });
+  }
+
+  getClaimsFromAPI() {
+    this.claimsApiService
+      .getClaimsTokens()
+      .subscribe((s) => (this.claimsFromApi = s));
   }
 }

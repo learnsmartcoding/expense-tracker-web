@@ -17,12 +17,12 @@ export const environment: EnvironmentConfiguration = {
     userProfile:'user-profiles'
   },
   adConfig: {
-    clientId: '598e0157-9cdc-4845-9315-6ff6e3949a23',
-    readScopeUrl: 'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Read',
-    writeScopeUrl: 'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Write',
+    clientId: 'c6943290-87e7-4060-8cc2-2557ae153fb4',
+    readScopeUrl: 'api://89be5bdf-cbf3-48f3-949a-bf9e7cd9cfbe/Expense.Read',
+    writeScopeUrl: 'api://89be5bdf-cbf3-48f3-949a-bf9e7cd9cfbe/Expense.Write',
     scopeUrls: [
-      'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Read',
-      'api://d7abe0f3-73ce-4296-a39a-215d24badeaf/Expense.Write'
+      'api://89be5bdf-cbf3-48f3-949a-bf9e7cd9cfbe/Expense.Read',
+      'api://89be5bdf-cbf3-48f3-949a-bf9e7cd9cfbe/Expense.Write'
     ],
     apiEndpointUrl: 'https://localhost:44351/api',
     tenantId: "ebd39e7e-31bc-4973-bc73-fef8e127d164"
