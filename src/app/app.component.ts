@@ -170,4 +170,12 @@ export class AppComponent implements OnInit, OnDestroy {
       .getClaimsTokens()
       .subscribe((s) => (this.claimsFromApi = s));
   }
+
+  getPublicEndpointData() {
+    this.claimsApiService
+      .getPublicEndpointData()
+      .subscribe((s) => {
+        alert('public-endpoint response from server: ' + s.message);
+      });
+  }
 }

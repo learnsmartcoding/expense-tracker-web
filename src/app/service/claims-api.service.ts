@@ -17,4 +17,7 @@ export class ClaimsApiService {
   getClaimsTokens(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`);
   }
+  getPublicEndpointData(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/public-endpoint`);
+  }
 }
